@@ -1,0 +1,385 @@
+# For more options and information see
+# http://rptl.io/configtxt
+# Some settings may impact device functionality. See link above for details
+
+# Uncomment some or all of these to enable the optional hardware interfaces
+#dtparam=i2c_arm=on
+#dtparam=i2s=on
+dtparam=spi=on
+
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on
+
+# Additional overlays and parameters are documented
+# /boot/firmware/overlays/README
+
+# Automatically load overlays for detected cameras
+camera_auto_detect=1
+
+# Automatically load overlays for detected DSI displays
+display_auto_detect=1
+
+
+# #############################################################################
+# Alex Herlan's custom Raspberry Pi 5+ config settings for custom built cluster
+# #############################################################################
+# General personal preferences 
+## Shows the console and debug information during system boot
+disable_splash=1
+## Makes sure the cooling fan is on (should be by default)
+cooling_fan=1
+
+## Forces PWM when using a 3V3 power supply. Set power_force_3v3_pwm=0 to disable.
+# power_force_3v3_pwm=1
+
+# ##############################################################################
+# Increase the amount of power output by the USB ports for external devices.
+# NOTE: It is still a good idea to run as many external peripherals off of a 
+# **SELF POWERED USB** when possible, to offload this from the Pi itself.
+## max_usb_current is a legacy setting for Pi 4 and lower
+max_usb_current=1
+## This is the setting used by Pi 5+
+usb_max_current_enable=1
+
+
+# #############################################################################
+# Storage / SD Card settings
+
+## Set to "off" to disable the SD card (or eMMC on non-lite SKU of CM4). 
+## (default "on")
+# sd=on
+
+## Use to enable Command Queueing on the SD interface for faster Class A2 card 
+## performance (Pi 5 only, default "off").
+sd_cqe=on
+
+## Clock (in MHz) to use when the MMC framework requests 50MHz
+# sd_overclock=500 
+
+## Looks for a card once after booting. Useful for network booting scenarios to 
+## avoid the overhead of continuous polling. N.B. Using this option restricts 
+## the system to using a single card per boot (or none at all). (default off)
+# sd_poll_once=off
+
+## Disable DMA support for SD driver (default off)
+# sd_force_pio=off
+
+## Number of blocks above which to use DMA for SD card (default 1)
+# sd_pio_limit=1
+
+## Enable debug output from SD driver (default off)
+# sd_debug=off
+
+## Clock (in MHz) to use when the MMC framework requests 50MHz for the SDIO/WLAN
+## interface.
+# sdio_overclock=50
+
+
+# ##############################################################################
+# PCIe Settings
+
+## Set to "off" to disable the PCIe interface (default "on") (Pi 5/2711 only, 
+## but not applicable on CM4S) N.B. USB-A ports on 4B are subsequently 
+## disabled
+pcie=on
+
+## Add N milliseconds between PCIe reference clock activation and PERST# deassertion
+## (CM4 and 2712/Pi 5, default "0")
+# pcie_tperst_clk_ms=0
+
+## Sets the PCIe "GEN"/speed for the external PCIe link (2712/Pi 5 only, default "2")
+pciex1_gen=3
+
+## Set to "on" to disable ASPM L0s on the external PCIe link for devices that 
+## have broken implementations (2712/Pi 5 only, default "off")
+# pciex1_no_l0s=off
+
+## Alias for pcie_tperst_clk_ms (2712/Pi 5 only, default "0")
+# pciex1_tperst_clk_ms=0
+
+
+# #############################################################################
+# Network Settings and other communication interfaces and protocols
+
+## Set an alternative WiFi MAC address. The value should be a 6-byte hexadecimal 
+## value, with or without colon separators, written in the natural (big-endian) 
+## order.
+# wifiaddr = 01:02:03:04:05:01
+
+## Set an alternative Bluetooth address (BDADDR). The value should be a 6-byte 
+## hexadecimal value, with or without colon separators, written 
+## least-significant-byte first. For example, bdaddr=06:05:04:03:02:01 will set 
+## the BDADDR to 01:02:03:04:05:06.
+# bdaddr=06:05:04:03:02:01
+
+## Enable Energy Efficient Ethernet support for compatible devices (default 
+## "on"). See also "tx_lpi_timer". Pi3B+ only.  Might consider tweaking this if
+## I have any issues w/ the Power over Eithernet hats in my cluster. 
+# eee=on
+
+## Set mode of LED0 - amber on Pi3B+ (default "1"), green on Pi4/5 
+## (default "0"). The legal values are:
+## Pi4/5
+## 0=Speed/Activity	1=Speed	2=Flash activity 	3=FDX	4=Off
+## 5=On 				6=Alt  	7=Speed/Flash 	 	8=Link  9=Activity      
+# eth_led0=0
+
+## Set mode of LED1 - green on Pi3B+ (default "6"), amber on Pi4/5 
+## (default "8"). See eth_led0 for legal values.
+# eth_led1=8
+
+## Set the maximum speed an eith link is allowed to negotiate. Legal values are 
+## 10, 100 and 1000 (default 1000). Pi3B+ only.
+# eth_max_speed=1000
+
+# #############################################################################
+# i2c is a Communication protocol between two or more Integrated Circuits
+
+## Set to "on" to enable the ARM's i2c interface (default "off")
+# i2c_arm=off
+
+## Set the baudrate of the ARM's i2c interface (default "100000")
+# i2c_arm_baudrate=100000
+
+## Set to "on" to enable the i2c_csi_dsi interface
+# i2c_csi_dsi=off
+
+## Set to "on" to enable the i2c_csi_dsi0 interface
+# i2c_csi_dsi0=off
+
+## Set to "on" to enable the i2c_csi_dsi1 interface
+# i2c_csi_dsi1=off
+
+## Set to "on" to enable the i2c interface  usually reserved for the VideoCore
+## processor (default "off")
+# i2c_vc=off
+
+## Set the baudrate of the VideoCore i2c interface (default "100000")
+# i2c_vc_baudrate=100000
+
+## Set to "on" to enable the i2s interface (default "off")
+# i2s=off
+
+## Use to enable 40-bit DMA on the i2s interface (the assigned value doesn't matter)
+## (Pi5+ / 2711 only)
+# i2s_dma4=1
+
+## Set to "off" to disable autoprobing of Bluetooth driver without need of
+## hciattach/btattach (default "on")
+# krnbt=on
+
+## Set the baudrate of the PL011 UART when used with krnbt=on
+# krnbt_baudrate=xxxx
+
+
+# #############################################################################
+# Serial Peripheral Interface (SPI) is the standard with many variants for 
+# synchronous serial communication
+
+## Set to "on" to enable the spi interfaces (default "off")
+# spi=off
+
+## Use to enable 40-bit DMA on spi interfaces (the assigned value doesn't matter) 
+## (Pi5/2711 only)
+# spi_dma4=1
+
+## Set to "on" to enable the hardware random number generator (default "on")
+# random=on
+
+## Set to "off" to disable the onboard Real Time Clock (Pi5/2712 only, default "on")
+# rtc=on
+
+## Set the RTC backup battery charging voltage in microvolts. If set to 0 or 
+## not specified, the trickle charger is disabled. (Pi5/2712 only, default "0")
+# rtc_bbat_vchg=0
+
+
+# #############################################################################
+# **WARNING** the following settings are for overclocking the CPU and GPU. 
+# **DO NOT**
+# edit these settings without researching each onew carefully.  These are all
+# RAspberry Pi 5 specific
+# #############################################################################
+# CPU chip settings
+arm_64bit=1
+## Raspberry Pi 4 only:
+# arm_boost=1
+
+# #############################################################################
+# under/over clocking settings
+
+## Frequency of the ARM CPU in MHz for overclocking
+# arm_freq=2400
+## Minimum value of arm_freq used for dynamic frequency clocking. 
+## Note that reducing this value below the default does not result in any 
+## significant power savings, and is not currently supported.
+# arm_freq_min=1500
+
+## Frequency of the SDRAM in MHz. SDRAM overclocking on Raspberry Pi 4 or 
+## newer is not supported.
+## WARNING: THIS SETTING ONLY WORKS WHEN DIRECTLY DEFINED IN CONCIFG.TXT
+## IT WILL NOT WORK INCLUDED FROM THIS FILE.
+# sdram_freq=4267
+## Minimum value of sdram_freq used for dynamic frequency clocking.
+# sdram_freq_min=4267
+
+## Frequency of the GPU processor core in MHz. Influences CPU performance 
+## because it drives the L2 cache and memory bus; the L2 cache benefits only 
+## Raspberry Pi Zero/Raspberry Pi Zero W/Raspberry Pi 1; and there is a small 
+## benefit for SDRAM on Raspberry Pi 2 and Raspberry Pi 3. See section below 
+## for use on Raspberry Pi 4.
+# core_freq=910
+## Minimum value of core_freq used for dynamic frequency clocking.
+# core_freq_min=500
+
+## Minimum value of over_voltage used for dynamic frequency clocking. 
+## The value should be in the range [-16,8] which equates to the range 
+## [0.8V,1.4V] with 0.025V steps. In other words, specifying -16 will 
+## give 0.8V as the CPU/GPU core idle voltage, and specifying 8 will 
+## give a minimum of 1.4V. This setting is deprecated on Raspberry 
+## Pi 4 and Raspberry Pi 5.
+# over_voltage_min
+## On Raspberry Pi 4 and Raspberry Pi 5 the over_voltage_delta 
+## parameter adds the given offset in microvolts to the number 
+## calculated by the DVFS algorithm.
+# over_voltage_delta
+
+
+# #############################################################################
+## Graphics and Image Processing settings
+
+## Sets core_freq, h264_freq, isp_freq, v3d_freq and hevc_freq together.
+# gpu_freq
+## Minimum value of gpu_freq used for dynamic frequency clocking.
+# gpu_freq_min=500
+
+## Frequency of the hardware video block in MHz; individual override of the 
+## gpu_freq setting.
+# h264_freq
+## Minimum value of h264_freq used for dynamic frequency clocking.
+# h264_freq_min
+
+## Maximum value of isp_freq used for dynamic frequency clocking.
+# isp_freq=910
+## Minimum value of isp_freq
+# isp_freq_min
+
+## Maximum Value of v3d_freq used for dynamic frequency clocking.
+# v3d_freq=910
+## Minimum value of v3d_freq 
+# v3d_freq_min=500
+
+## Maximum Value of hevc_freq used for dynamic frequency clocking.
+# hevc_freq=910
+## Minimum value of hevc_freq 
+# hevc_freq_min=910
+
+## Set to "off" to disable the HDMI interface (default "on")
+# hdmi=on
+
+# #############################################################################
+# Fan / Cooling settings 	
+## Overheat protection. This sets the clocks and voltages to default when the 
+## SoC reaches this value in degree Celsius. Values over 85 are clamped to 85.
+# temp_limit=80
+
+## Temperature threshold (in millicelcius) for 1st cooling level (default 50000).
+# fan_temp0=50000
+
+## Temperature hysteresis (in millicelcius) for 1st cooling level (default 5000). 
+## Pi5 only.
+# fan_temp0_hyst=5000
+
+## Fan PWM setting for 1st cooling level (0-255, default 75). Pi5 only.
+# fan_temp0_speed=75
+
+## Temperature hysteresis (in millicelcius) for 2nd cooling level (def=5000). 
+## Pi5 only.
+# fan_temp1_hyst=5000     
+
+## Fan PWM setting for 2nd cooling level (0-255, default 125). 
+## Pi5 only.
+# fan_temp1_speed=125
+
+## Temperature threshold (in millicelcius) for 3rd cooling level (default 67500).
+## Pi5 only.
+# fan_temp2=67500
+
+## Temperature hysteresis (in millicelcius) for 3rd cooling level (default 5000). 
+## Pi5 only.
+# fan_temp2_hyst=5000
+
+## Fan PWM setting for 3rd cooling level (0-255, default 175). 
+## Pi5 only.
+# fan_temp2_speed=175   
+
+## Temperature threshold (in millicelcius) for 4th cooling level (default 75000).
+## Pi5 only.
+# fan_temp3=75000         
+
+## Temperature hysteresis (in millicelcius) for 4th cooling level (default 5000). 
+## Pi5 only.
+# fan_temp3_hyst=5000
+
+## Fan PWM setting for 4th cooling level (0-255, default 250).
+## Pi5 only.
+# fan_temp3_speed=250
+
+
+# ##############################################################################
+# Hardware Debugging Settings
+# Set to "off" to disable uart0 (default "on")
+# uart0=on      
+# Move the kernel boot console to UART0 on pins 6, 8 and 10 of the 40-way header 
+# (2712 only, default "off")
+# uart0_console=off
+
+## Set to "on" or "off" to enable or disable uart1 (default varies)
+# uart1=on
+
+## Set to "on" to enable the hardware watchdog  (default "off")
+# watchdog=off
+
+# Automatically load initramfs files, if found
+auto_initramfs=1
+
+# Enable DRM VC4 V3D driver
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2
+
+# Don't have the firmware create an initial video= setting in cmdline.txt.
+# Use the kernel's default instead.
+disable_fw_kms_setup=1
+
+# Disable compensation for displays with overscan
+disable_overscan=1
+
+# Allow the screen to go to sleep (hopefully?)
+hdmi_blanking=0
+
+[cm4]
+# Enable host mode on the 2711 built-in XHCI USB controller.
+# This line should be removed if the legacy DWC2 controller is required
+# (e.g. for USB device mode) or if USB support is not required.
+otg_mode=1
+
+[pi02]
+
+[pi5]
+# Run in 64-bit mode
+arm_64bit=1
+
+# Pump up usb current to help support my touch screen.  It might be possible
+# to power the screen more through its own secondary USB-C port. Still need
+# to test. - Alex 3/16/2024
+# NVMe Configuration.  Should up the speed of the NVMe bottom board
+dtparam=pciex1_gen=3
+usb_max_current_enable=1
+
+# Run as fast as firmware / board allows
+arm_boost=1
+
+[all]
+
+
+

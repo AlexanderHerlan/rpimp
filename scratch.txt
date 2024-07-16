@@ -1,0 +1,46 @@
+apt-addrepo:gpgkey=/usr/share/keyrings/docker.asc|repofile=/etc/apt/sources.list.d/docker.list
+apt-addrepo:gpgkey=/usr/share/keyrings/kubernetes.gpg|repofile=/etc/apt/sources.list.d/kubernetes.list
+apt-addrepo:gpgkey=/usr/share/keyrings/openmediavault.gpg|repofile=/etc/apt/sources.list.d/openmediavault.list
+
+* **gpgkey** &mdash; /path/to/keyname.gpg
+* **gpgkeyname** &mdash; Provide a different filename for the key in /etc/apt/trusted.gpg.d
+* **name** &mdash; Name of the repo file in /etc/apt/sources.list.d for a `repo` string
+* **repo** &mdash; A repo string that will be written to the named file in /etc/apt/sources.list.d
+* **repofile** &mdash; File containing an apt repo that is copied to /etc/apt/sources.list.d
+
+apt-addrepo:gpgkey=/usr/share/keyrings/docker.asc|repofile=/etc/apt/sources.list.d/docker.list
+apt-addrepo:gpgkey=/usr/share/keyrings/kubernetes.gpg|repofile=/etc/apt/sources.list.d/kubernetes.list
+
+# custom special stuff
+docker-ce
+docker-ce-cli
+containerd.io
+docker-buildx-plugin
+docker-compose-plugin
+
+
+2024-04-13 07:52:43 apt-get -qq update
+
+W: GPG error: https://download.docker.com/linux/debian bookworm InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7EA0A9C3F273FCD8
+E: The repository 'https://download.docker.com/linux/debian bookworm InRelease' is not signed.
+[Done]
+
+
+
+
+user:userlist=/home/aherlan/sdm-configs/rp-server/users
+system:name=0|eeprom=stable|motd=/dev/null
+system:name=1|service-disable=apt-daily.timer,apt-daily-upgrade.timer,wpa_supplicant,avahi-daemon,avahi-daemon.socket,ModemManager,rsync,mdadm-shutdown
+network:nmconn=/home/aherlan/sdm-configs/rp-server/nmconfig/Wired_LAN.nmconnection,/home/aherlan/sdm-configs/rp-server/nmconfig/DesertDigital_5G.nmconnection|wifissid=DesertDigital_5G|wifipassword=LetMeIn69!|wificountry=US
+disables:triggerhappy|piwiz
+quietness:consoleblank=300|noquiet=keep|nosplash=keep|noplymouth
+L10n:host
+copyfile:from=/home/aherlan/.ssh/authorized_keys|to=/home/aherlan/.ssh/|chown=aherlan:aherlan|chmod=644|runphase=postinstall
+copyfile:from=/home/aherlan/.ssh/authorized_keys|to=/home/orbitrix/.ssh/|chown=orbitrix:orbitrix|chmod=644|runphase=postinstall
+copyfile:from=/boot/firmware/config.txt|to=/boot/firmware/|chown=root:rp-server-group|chmod=744|runphase=postinstall
+copyfile:from=/home/aherlan/sdm-configs/rp-server/keyfiles/docker.asc|to=/usr/share/keyrings/|chown=root:rp-server-group|chmod=644|runphase=postinstall
+copyfile:from=/etc/apt/sources.list.d/docker.list|to=/etc/apt/sources.list.d/|chown=root:root|chmod=644|runphase=postinstall
+copyfile:from=/home/aherlan/sdm-configs/rp-server/keyfiles/kubernetes.gpg|to=/usr/share/keyrings/|chown=root:rp-server-group|chmod=644|runphase=postinstall
+copyfile:from=/etc/apt/sources.list.d/kubernetes.list|to=/etc/apt/sources.list.d/|chown=root:root|chmod=644|runphase=postinstall
+apt-addrepo:repofile=/etc/apt/sources.list.d/docker.list|gpgkey=/home/aherlan/sdm-configs/rp-server/keyfiles/docker.asc
+
