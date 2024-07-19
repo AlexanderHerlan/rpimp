@@ -5,8 +5,7 @@
 # Dependency declarations
 import os
 import sys
-import sdm_globals as gv
-import update_os as rpos
+import rpimp_globals as gv
 import argparse
 import requests
 import lzma
@@ -108,6 +107,10 @@ def update_os_images():
     latest_remote_archive = latest_remote_image_name + '.xz'
     archive_destination = os.path.join(gv.OS_IMG_PATH, latest_remote_archive)
     image_destination = os.path.join(gv.OS_IMG_PATH, latest_remote_image_name)
+
+    print(archive_destination)
+    print(latest_remote_image_name)
+    print(latest_local_image_name)
 
     if(latest_local_image_name == latest_remote_image_name):
         print("Your RaspberryPi OS Lite images are up to date.")

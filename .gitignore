@@ -1,3 +1,7 @@
 *.img
 *.nmconnection
 __pycache__
+.editorconfig
+.prettierrc
+user.conf
+scratch.txt

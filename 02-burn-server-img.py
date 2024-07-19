@@ -8,7 +8,7 @@ import os
 import subprocess
 import shutil
 import sys
-import sdm_globals as gv
+import rpimp_globals as gv
 import update_os as rpos
 #----------------------------------------------------------------------------------------------------------------------#
 
@@ -33,34 +33,49 @@ image_to_burn = input("Select server by number: ")
 server_host_name = server_list[int(image_to_burn)-1]
 print(server_host_name)
 
+burn_directory = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/"
+burn_file = burn_directory + server_host_name + "-" + gv.TODAYS_DATE + ".img"
+nm_path = "/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/NetworkManager/system-connections/"
+config_path = "/home/aherlan/rpimp/rp5-servers/config.txt"
+cmdline_path = "/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/cmdline.txt"
+user_path = "/home/aherlan/rpimp/rp5-servers/users.conf"
 
+if (os.path.isfile(burn_file)):
+    os.remove(burn_file)
+    
 # COMMAND1 =  "sdm " \
 #             "--burn " + gv.SD_CARD_HANDLE + " " \
 #             "--hostname " + server_host_name + " " \
-#             "--plugin network:\"netman=nm|noipv6|nmconn=/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/NetworkManager/system-connections/DesertDigital_5G.nmconnection,/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/NetworkManager/system-connections/Wired-connection-eth0.nmconnection\" " \
-#             "--plugin runatboot:\"script=/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/initial_local_setup.sh\" " \
+#             "--plugin network:\"netman=nm|noipv6|nmconn=/home/aherlan/rpimp/rp-server/" + server_host_name + "/NetworkManager/system-connections/DesertDigital_5G.nmconnection,/home/aherlan/rpimp/rp-server/" + server_host_name + "/NetworkManager/system-connections/Wired-connection-eth0.nmconnection\" " \
+#             "--plugin runatboot:\"script=/home/aherlan/rpimp/rp-server/" + server_host_name + "/initial_local_setup.sh\" " \
 #             "--expand-root " + gv.WORKING_IMG_PATH + " " \
 
 # COMMAND1 =  "sdm " \
 #             "--burnfile " + gv.WORKING_IMG_PATH + " " \
 #             "--host " + server_host_name + " " \
-#             "--plugin network:\"netman=nm|noipv6|nmconn=/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/NetworkManager/system-connections/DesertDigital_5G.nmconnection,/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/NetworkManager/system-connections/Wired-connection-eth0.nmconnection\" " \
-#             "--plugin runatboot:\"script=/home/aherlan/sdm-configs/rp-server/" + server_host_name + "/initial_local_setup.sh\" " \
-#             "--expand-root " + "~/sdm-configs/rp5-servers/" + server_host_name + "/" + server_host_name + ".img "
+#             "--plugin network:\"netman=nm|noipv6|nmconn=/home/aherlan/rpimp/rp-server/" + server_host_name + "/NetworkManager/system-connections/DesertDigital_5G.nmconnection,/home/aherlan/rpimp/rp-server/" + server_host_name + "/NetworkManager/system-connections/Wired-connection-eth0.nmconnection\" " \
+#             "--plugin runatboot:\"script=/home/aherlan/rpimp/rp-server/" + server_host_name + "/initial_local_setup.sh\" " \
+#             "--expand-root " + "~/rpimp/rp5-servers/" + server_host_name + "/" + server_host_name + ".img "
 
-burn_directory = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/"
-burn_file = burn_directory + server_host_name + "-" + gv.TODAYS_DATE + ".img"
-nm_path = "/home/aherlan/sdm-configs/rp5-servers/" + server_host_name + "/NetworkManager/system-connections/"
-config_path = "/home/aherlan/sdm-configs/rp5-servers/config.txt"
-cmdline_path = "/home/aherlan/sdm-configs/rp5-servers/" + server_host_name + "/cmdline.txt"
+
+
+# COMMAND1 = "sudo sdm " \
+#            "--burnfile " + burn_file + " " \
+#            "--plugin network:netman=nm|noipv6|nmconn=" + nm_path + "DesertDigital_5G.nmconnection," + nm_path + "Wired-connection-eth0.nmconnection|wifissid=DesertDigital_5G|wifipassword=LetMeIn69!|wificountry=US " \
+#            "--plugin runatboot:script=/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/initial_local_setup.sh " \
+#            "--plugin copyfile:from="+config_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 " \
+#            "--host " + server_host_name + " " + gv.WORKING_IMG_PATH + " " \
+#            "--plugin copyfile:from="+cmdline_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 "
+
 
 COMMAND1 = "sudo sdm " \
            "--burnfile " + burn_file + " " \
+           "--host " + server_host_name + " " + gv.WORKING_IMG_PATH + " " \
+           "--plugin @" + user_path + " " \
            "--plugin network:netman=nm|noipv6|nmconn=" + nm_path + "DesertDigital_5G.nmconnection," + nm_path + "Wired-connection-eth0.nmconnection|wifissid=DesertDigital_5G|wifipassword=LetMeIn69!|wificountry=US " \
-           "--plugin runatboot:script=/home/aherlan/sdm-configs/rp5-servers/" + server_host_name + "/initial_local_setup.sh " \
            "--plugin copyfile:from="+config_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 " \
-           "--plugin copyfile:from="+cmdline_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 " \
-           "--host " + server_host_name + " " + gv.WORKING_IMG_PATH
+           "--plugin runatboot:script=/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/initial_local_setup.sh " \
+#           "--plugin copyfile:from="+cmdline_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 "
 
 
 # cmd1 = subprocess.Popen(['echo', gv.ADMIN_PASS],stdout=subprocess.PIPE)

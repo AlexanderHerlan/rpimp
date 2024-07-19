@@ -6,7 +6,7 @@
 import os
 import subprocess
 import shutil
-import sdm_globals as gv
+import rpimp_globals as gv
 import update_os as rpos
 
 ########################################################################################################################
