@@ -71,11 +71,8 @@ if (os.path.isfile(burn_file)):
 COMMAND1 = "sudo sdm " \
            "--burnfile " + burn_file + " " \
            "--host " + server_host_name + " " + gv.WORKING_IMG_PATH + " " \
-           "--plugin @" + user_path + " " \
            "--plugin network:netman=nm|noipv6|nmconn=" + nm_path + "DesertDigital_5G.nmconnection," + nm_path + "Wired-connection-eth0.nmconnection|wifissid=DesertDigital_5G|wifipassword=LetMeIn69!|wificountry=US " \
-           "--plugin copyfile:from="+config_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 " \
-           "--plugin runatboot:script=/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/initial_local_setup.sh " \
-#           "--plugin copyfile:from="+cmdline_path+"|to=/boot/firmware/|chown=aherlan:rp-server-group|chmod=744 "
+           "--plugin runatboot:script=/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/initial_local_setup.sh "
 
 
 # cmd1 = subprocess.Popen(['echo', gv.ADMIN_PASS],stdout=subprocess.PIPE)
