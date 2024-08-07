@@ -5,3 +5,4 @@ __pycache__
 .prettierrc
 user.conf
 scratch.txt
+rpimp_globals.py

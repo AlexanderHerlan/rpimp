@@ -55,13 +55,15 @@ if __name__ == '__main__':
     print("Now working on: \n" + gv.WORKING_IMG_FILE)
     print("In the directory: \n" + gv.WORKING_DIR)
 
+    config_path = gv.WORKING_DIR + "rp5-servers/config.txt"
+
     COMMAND1 = "sdm " \
               "--customize " + gv.WORKING_IMG_PATH + " " \
               "--logwidth 132 " \
               "--extend --xmb 4048 " \
-              "--bootscripts " + gv.BOOT_SCRIPTS + " " \
               "--plugin @" + gv.PLUGIN_LIST + " " \
               "--plugin apps:apps=@" + gv.APPS_LIST + "|name=myapps " \
+              "--bootscripts " \
               "--reboot 20"
     
     # Show the final SDM command that we will be running
@@ -76,13 +78,6 @@ if __name__ == '__main__':
     print(output1)
 
     print(gv.HR_SPLIT)
-
-    # Execute the sdm shrink command on the final image to save disk space
-    # COMMAND2 = "sdm --shrink " + gv.WORKING_IMG_PATH
-    # cmd3 = subprocess.Popen(['echo', gv.ADMIN_PASS],stdout=subprocess.PIPE)
-    # cmd4 = subprocess.Popen(['sudo', '-S'] + COMMAND2.split(), stdin=cmd3.stdout, stdout=subprocess.PIPE)
-    # output2 = cmd4.stdout.read().decode()
-    # print(output2)
     
     # Final Farewell
     print(gv.HR_SPLIT)

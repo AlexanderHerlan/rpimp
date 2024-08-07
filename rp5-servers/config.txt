@@ -184,10 +184,10 @@ pciex1_gen=3
 # spi_dma4=1
 
 ## Set to "on" to enable the hardware random number generator (default "on")
-# random=on
+random=on
 
 ## Set to "off" to disable the onboard Real Time Clock (Pi5/2712 only, default "on")
-# rtc=on
+rtc=on
 
 ## Set the RTC backup battery charging voltage in microvolts. If set to 0 or 
 ## not specified, the trickle charger is disabled. (Pi5/2712 only, default "0")
