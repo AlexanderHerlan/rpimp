@@ -17,7 +17,7 @@ print("Attempting to burn image: " + gv.BASE_IMG_PATH)
 print("To device: " + gv.SD_CARD_HANDLE)
 print(gv.BASE_IMG_PATH)
 
-server_list = ['rp-server-blue', 'rp-server-green', 'rp-server-red', 'rp-server-white']
+server_list = ['rp5-blue', 'rp5-green', 'rp5-red', 'rp5-white']
 
 image_to_burn = ""
 
@@ -42,6 +42,8 @@ user_path = gv.WORKING_DIR + "rp5-servers/users.conf"
 wired_conn = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/NetworkManager/system-connections/Wired-connection-eth0.nmconnection"
 smb_conf = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/smb.conf"
 shares_conf = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/shares.conf"
+hosts_path = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/hosts"
+hostname_path = gv.WORKING_DIR + "rp5-servers/" + server_host_name + "/hostname"
 
 if (os.path.isfile(burn_file)):
     os.remove(burn_file)
@@ -51,10 +53,11 @@ COMMAND1 = "sudo sdm " \
            "--host " + server_host_name + " " + gv.WORKING_IMG_PATH + " " \
            "--plugin network:netman=nm|noipv6|nmconn=" + nm_path + "Wired-connection-eth0.nmconnection," + nm_path + "DesertDigital_5G.nmconnection|wifissid=DesertDigital_5G|wifipassword=LetMeIn69!|wificountry=US " \
            "--plugin samba:smbconf=" + smb_conf + " " \
-           "--plugin samba:shares=" + shares_conf + " " \
            "--plugin runatboot:script=/home/aherlan/rpimp/rp5-servers/" + server_host_name + "/initial_local_setup.sh " \
            "--plugin copyfile:from="+config_path+"|to=/boot/firmware/|chown=root:root|chmod=755 " \
-           "--plugin copyfile:from="+wired_conn+"|to=/etc/NetworkManager/system-connections/|chown=root:root|chmod=600 "
+           "--plugin copyfile:from="+wired_conn+"|to=/etc/NetworkManager/system-connections/|chown=root:root|chmod=644 " \
+           "--plugin copyfile:from="+hosts_path+"|to=/etc|chown=root:root|chmod=644 " \
+           "--plugin copyfile:from="+hostname_path+"|to=/etc|chown=root:root|chmod=644 "
 
 
 # Show the final SDM command that we will be running

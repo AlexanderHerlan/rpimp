@@ -1,0 +1,9 @@
+127.0.0.1       localhost
+::1             localhost ip6-localhost ip6-loopback
+ff02::1         ip6-allnodes
+ff02::2         ip6-allrouters
+
+192.168.50.71	rp5-blue.herlan.dev	rp5-blue
+192.168.50.72	rp5-green.herlan.dev	rp5-green
+192.168.50.73	rp5-red.herlan.dev	rp5-red
+192.168.50.74	rp5-white.herlan.dev	rp5-white
